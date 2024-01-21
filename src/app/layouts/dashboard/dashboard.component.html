@@ -1,0 +1,25 @@
+<mat-drawer-container class="dashboard.container" autosize>
+
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+      <mat-list>
+        <mat-list-item>Inicio</mat-list-item>
+        <mat-list-item>Alumnos</mat-list-item>
+        <mat-list-item>Cursos</mat-list-item>
+      </mat-list>
+  </mat-drawer>
+  
+  <div class="example-sidenav-content">
+    <mat-toolbar color="primary">
+      <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Academia Natural</span>
+    </mat-toolbar>
+  </div>
+
+  <div class="p-3">
+    <app-alumnos></app-alumnos>
+  </div>
+
+</mat-drawer-container>
+  

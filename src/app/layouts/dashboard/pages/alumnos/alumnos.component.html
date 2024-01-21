@@ -1,0 +1,74 @@
+
+<div appTitulos>
+    Alumnos
+</div>
+
+<div class="p-3">
+    <app-alumnos-form (alumnoSubmitted)="onAlumnoSubmitted($event)" [alumnoAEditar]="this.passEditar"></app-alumnos-form>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="legajo">
+        <th mat-header-cell *matHeaderCellDef> legajo </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno.legajo}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="numeroDocumento">
+        <th mat-header-cell *matHeaderCellDef> Documento </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno.numeroDocumento}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="genero">
+        <th mat-header-cell *matHeaderCellDef> género </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno.genero}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="apeNom">
+        <th mat-header-cell *matHeaderCellDef> apeNom </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno | nombreCompleto}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> email </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno.email}} </td>
+    </ng-container>
+
+            <!-- Weight Column -->
+    <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef> teléfono </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno.telefono}} </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let alumno"> 
+            <button mat-icon-button matTooltip="Editar" class="iconbutton" 
+                color="primary" (click)="onAlumnoEdited(alumno)">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="eliminar">
+        <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+        <td mat-cell *matCellDef="let alumno"> 
+            <button mat-icon-button matTooltip="Eliminar" class="iconbutton"
+                (click)="onAlumnoDeleted(alumno)" color="warn">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
