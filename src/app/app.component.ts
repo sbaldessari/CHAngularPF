@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'PFBaldessari';
+
+  isLoading = false;
+
+  constructor(private loadingService: LoadingService) {
+
+    this.loadingService.isLoading$.subscribe({
+      next: (value) => {
+        setTimeout(() => {
+          this.isLoading = value
+        })
+      }
+    })
+    
+  }
+
 }

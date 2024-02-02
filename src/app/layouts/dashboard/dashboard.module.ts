@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import { AlumnosModule } from './pages/alumnos/alumnos.module';
+import { SharedModule } from '../../shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
+import { StudentDetailComponent } from './pages/students/pages/student-detail/student-detail.component';
+import { UserDetailComponent } from './pages/users/pages/user-detail/user-detail.component';
+import { CourseDetailComponent } from './pages/courses/pages/course-detail/course-detail.component';
 
 
 @NgModule({
@@ -15,12 +15,41 @@ import { AlumnosModule } from './pages/alumnos/alumnos.module';
   ],
   imports: [
     CommonModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    AlumnosModule
+    SharedModule,
+    RouterModule.forChild([
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('./pages/users/users.module').then((m) => m.UsersModule)
+      },
+      {
+        path: 'users/:id',
+        component: UserDetailComponent
+      },
+      {
+        path: 'students',
+        loadChildren: () => import('./pages/students/students.module').then((m) => m.StudentsModule)
+      },
+      {
+        path: 'students/:id',
+        component: StudentDetailComponent
+      },
+      {
+        path: 'courses',
+        loadChildren: () => import('./pages/courses/courses.module').then((m) => m.CoursesModule)
+      },
+      {
+        path: 'courses/:id',
+        component: CourseDetailComponent
+      },
+      {
+        path: '**',
+        redirectTo: 'home'
+      }
+    ])
   ],
   exports: [
     DashboardComponent
