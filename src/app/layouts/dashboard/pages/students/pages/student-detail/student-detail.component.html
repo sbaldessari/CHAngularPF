@@ -1,18 +1,67 @@
 <div appTitles>
-    Detalle Alumno
+  Detalle Alumno
 </div>
 
-<mat-list>
-    <mat-list-item>
-      <span matListItemTitle>Pepper</span>
-      <span matListItemLine>Produced by a plant</span>
-    </mat-list-item>
-    <mat-list-item>
-      <span matListItemTitle>Salt</span>
-      <span matListItemLine>Extracted from sea water</span>
-    </mat-list-item>
-    <mat-list-item>
-      <span matListItemTitle>Paprika</span>
-      <span matListItemLine>Produced by dried and ground red peppers</span>
-    </mat-list-item>
-</mat-list>
+<form [formGroup]="studentForm" class="grid formgrid">
+  <div class="col-12">
+    <mat-form-field class="w-full">
+        <mat-label>id</mat-label>
+        <input formControlName="id" matInput type="number" readonly="readonly" >
+    </mat-form-field>
+  </div>
+  <div class="col-12">
+      <mat-form-field class="w-full">
+          <mat-label>legajo</mat-label>
+          <input formControlName="legajo" matInput type="number" readonly="readonly">
+      </mat-form-field>
+  </div>
+  <div class="col-12">
+      <mat-form-field class="w-full">
+          <mat-label>dni</mat-label>
+          <input formControlName="dni" matInput type="number" readonly="readonly">
+      </mat-form-field>
+  </div>
+  <div class="col-12">
+      <mat-form-field class="w-full">
+          <mat-label>genero</mat-label>
+          <mat-select formControlName="genero" readonly="readonly">
+              <mat-option value="MASCULINO">MASCULINO</mat-option>
+              <mat-option value="FEMENINO">FEMENINO</mat-option>
+              <mat-option value="OTROS">OTROS</mat-option>
+          </mat-select>
+      </mat-form-field>
+  </div>
+  <div class="col-12">
+      <mat-form-field class="w-full">
+          <mat-label>nombre</mat-label>
+          <input formControlName="firstName" matInput type="text" readonly="readonly">
+      </mat-form-field>
+  </div>
+  <div class="col-12">
+      <mat-form-field class="w-full">
+          <mat-label>apellido</mat-label>
+          <input formControlName="lastName" matInput type="text" readonly="readonly">
+      </mat-form-field>
+  </div>
+  <div class="col-12">
+      <mat-form-field class="w-full">
+          <mat-label>telefono</mat-label>
+          <input formControlName="phone" matInput type="text" readonly="readonly">
+      </mat-form-field>
+  </div>
+  <div class="col-12">
+      <mat-form-field class="w-full">
+          <mat-label>email</mat-label>
+          <input formControlName="email" matInput type="email" readonly="readonly">
+      </mat-form-field>
+  </div>
+  <div class="col-12 w-full">
+      <mat-form-field class="w-full">
+          <mat-label>Fecha de creacion</mat-label>
+          <input formControlName="createdAt" matInput [matDatepicker]="fechaCreacionPicker" readonly="readonly">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="fechaCreacionPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fechaCreacionPicker></mat-datepicker>
+      </mat-form-field>
+  </div>
+</form>

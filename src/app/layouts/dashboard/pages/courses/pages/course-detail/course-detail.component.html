@@ -1,3 +1,21 @@
 <div appTitles>
     Detalle Curso
 </div>
+
+<form [formGroup]="courseForm" class="grid formgrid">
+    <div class="col-12">
+        <mat-form-field class="w-full">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="name" matInput readonly="readonly"/>
+        </mat-form-field>
+    </div>
+    <div class="col-12">
+        <mat-form-field class="w-full">
+            <mat-label>Fecha de creacion</mat-label>
+            <input formControlName="createdAt" matInput [matDatepicker]="fechaCreacionPicker" readonly="readonly">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="fechaCreacionPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fechaCreacionPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+</form>
