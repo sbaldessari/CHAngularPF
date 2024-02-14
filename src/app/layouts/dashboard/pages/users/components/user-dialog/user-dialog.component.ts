@@ -22,15 +22,15 @@ export class UserDialogComponent {
       id: this.fb.control(''),
       firstName: this.fb.control('', Validators.required),
       lastName: this.fb.control('', Validators.required),
-      rol: this.fb.control('', Validators.required),
+      role: this.fb.control('', Validators.required),
       phone: this.fb.control('', Validators.required),
       email: this.fb.control('', Validators.required),
-      pass: this.fb.control('', Validators.required),
+      password: this.fb.control('', Validators.required),
       createdAt: this.fb.control('', Validators.required)
     })
 
     if(editingUser){
-    this.userForm.patchValue(editingUser)
+      this.userForm.patchValue(editingUser)
     }
 
   }

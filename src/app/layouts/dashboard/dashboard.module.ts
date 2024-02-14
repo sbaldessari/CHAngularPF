@@ -4,10 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { StudentDetailComponent } from './pages/students/pages/student-detail/student-detail.component';
-import { UserDetailComponent } from './pages/users/pages/user-detail/user-detail.component';
-import { CourseDetailComponent } from './pages/courses/pages/course-detail/course-detail.component';
-
+import { adminGuard } from '../../core/guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -23,6 +20,7 @@ import { CourseDetailComponent } from './pages/courses/pages/course-detail/cours
       },
       {
         path: 'users',
+        canActivate: [adminGuard],
         loadChildren: () => import('./pages/users/users.module').then((m) => m.UsersModule)
       },
       {

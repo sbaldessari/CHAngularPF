@@ -5,7 +5,7 @@ import Swal, { SweetAlertOptions } from "sweetalert2";
 @Injectable({
   providedIn: 'root'
 })
-export class AlertService {
+export class AlertsService {
 
     private notification$ = new Subject<SweetAlertOptions>()
 

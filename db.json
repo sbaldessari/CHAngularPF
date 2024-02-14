@@ -1,0 +1,158 @@
+{
+  "users": [
+    {
+      "id": "lcdf",
+      "firstName": "Jorge",
+      "lastName": "Martinez",
+      "role": "ADMIN",
+      "phone": "12345678",
+      "email": "jmartinez@academinanatural.com.ar",
+      "password": "Abcd1234",
+      "createdAt": "2022-10-31T09:00:00Z",
+      "token": "dkfor4ks6hjdft9"
+    },
+    {
+      "id": "ok45",
+      "firstName": "Jesica",
+      "lastName": "Gomez",
+      "role": "USER",
+      "phone": "12345678",
+      "email": "jgomez@academinanatural.com.ar",
+      "password": "Abcd1234",
+      "createdAt": "2022-10-31T09:00:00Z",
+      "token": "dkfor4ks6333ft9"
+    },
+    {
+      "id": "ed98",
+      "firstName": "Mirko",
+      "lastName": "Rodriguez",
+      "role": "USER",
+      "phone": "12345678",
+      "email": "mrodriguez@academinanatural.com.ar",
+      "password": "Abcd1234",
+      "createdAt": "2023-05-31T09:00:00Z"
+    },
+    {
+      "id": "6b62",
+      "firstName": "Cesar",
+      "lastName": "Sosa",
+      "role": "USER",
+      "phone": "321654",
+      "email": "csosa@academianatural.com.ar",
+      "password": "Abcd1234",
+      "createdAt": "2024-02-12T03:00:00.000Z",
+      "token": "7KDg2cJNSbItYWn"
+    }
+  ],
+  "courses": [
+    {
+      "id": "l8j5",
+      "name": "Matematicas",
+      "createdAt": "2023-07-31T09:00:00Z"
+    },
+    {
+      "id": "4ft5",
+      "name": "Algebra",
+      "createdAt": "2022-10-31T09:00:00Z"
+    },
+    {
+      "id": "dc87",
+      "name": "Ciencias Naturales",
+      "createdAt": "2024-05-31T09:00:00Z"
+    },
+    {
+      "id": "sc8k",
+      "name": "Geografia",
+      "createdAt": "2023-06-31T09:00:00Z"
+    },
+    {
+      "id": "fv67",
+      "name": "Ingles",
+      "createdAt": "2023-06-31T09:00:00Z"
+    },
+    {
+      "id": "hn2s",
+      "name": "Quimica",
+      "createdAt": "2024-01-31T09:00:00Z"
+    }
+  ],
+  "students": [
+    {
+      "id": "k1a9",
+      "legajo": 100011,
+      "dni": 11111111,
+      "genero": "MASCULINO",
+      "firstName": "Sergio",
+      "lastName": "Baldessari",
+      "phone": "12345678",
+      "email": "sbaldessari@academinanatural.com.ar",
+      "createdAt": "2022-07-31T09:00:00Z"
+    },
+    {
+      "id": "d0o9",
+      "legajo": 100012,
+      "dni": 22222222,
+      "genero": "MASCULINO",
+      "firstName": "Pedro",
+      "lastName": "Hernandez",
+      "phone": "12345678",
+      "email": "phernandez@academinanatural.com.ar",
+      "createdAt": "2022-07-31T09:00:00Z"
+    },
+    {
+      "id": "ijde",
+      "legajo": 100013,
+      "dni": 33333333,
+      "genero": "MASCULINO",
+      "firstName": "Diego",
+      "lastName": "Flores",
+      "phone": "12345678",
+      "email": "dflores@academinanatural.com.ar",
+      "createdAt": "2022-07-31T09:00:00Z"
+    },
+    {
+      "id": "ed52",
+      "legajo": 100014,
+      "dni": 44444444,
+      "genero": "FEMENINO",
+      "firstName": "Cintia",
+      "lastName": "Diaz",
+      "phone": "12345678",
+      "email": "cdiaz@academinanatural.com.ar",
+      "createdAt": "2022-07-31T09:00:00Z"
+    },
+    {
+      "id": "kgf4",
+      "legajo": 100015,
+      "dni": 55555555,
+      "genero": "FEMENINO",
+      "firstName": "Silvina",
+      "lastName": "Cordoba",
+      "phone": "12345678",
+      "email": "scordoba@academinanatural.com.ar",
+      "createdAt": "2022-07-31T09:00:00Z"
+    },
+    {
+      "id": "19ae",
+      "legajo": 100016,
+      "dni": 66666666,
+      "genero": "FEMENINO",
+      "firstName": "Gabriela",
+      "lastName": "Benitez",
+      "phone": "12345678",
+      "email": "gbenitez@academinanatural.com.ar",
+      "createdAt": "2022-07-31T09:00:00Z"
+    },
+    {
+      "id": "5m18",
+      "legajo": 100017,
+      "dni": 77777777,
+      "genero": "MASCULINO",
+      "firstName": "Tomas",
+      "lastName": "Alvarez",
+      "phone": "12345678",
+      "email": "talvarez@academinanatural.com.ar",
+      "createdAt": "2022-07-31T09:00:00Z"
+    }
+  ]
+}

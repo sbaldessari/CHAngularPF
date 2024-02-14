@@ -1,58 +1,79 @@
 import { Injectable } from "@angular/core";
-import { Observable, delay, finalize, of, tap } from "rxjs";
+import { Observable, catchError, delay, finalize, mergeMap, of, tap } from "rxjs";
 import { Course } from "./models";
 import { LoadingService } from "../../../../core/services/loading.service";
-import { AlertService } from "../../../../core/services/alert.service";
-
-let courses: Course[] = [
-    {
-        id: 1,
-        name: 'Matematicas',
-        createdAt: new Date()
-    },
-    {
-        id: 2,
-        name: 'Fisica',
-        createdAt: new Date()
-    },
-    {
-        id: 3,
-        name: 'Quimica',
-        createdAt: new Date()
-    },
-]
+import { AlertsService } from "../../../../core/services/alerts.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "../../../../../environments/environments";
+import { Pagination } from "../../../../core/models/pagination";
 
 @Injectable()
 
 export class CoursesServices{
 
-    constructor(private loadingService: LoadingService, private alerts: AlertService){
+    constructor(private loadingService: LoadingService, 
+                private alerts: AlertsService,
+                private httpClient: HttpClient){
     }
 
     getCourses() {
        this.loadingService.setIsLoading(true)
-       return of(courses).pipe(delay(2000), finalize(() => this.loadingService.setIsLoading(false)))
+       let headers = new HttpHeaders()
+       headers.append('token', localStorage.getItem('token') || '')   
+       return this.httpClient.get<Course[]>(`${environment.apiURL}/courses`, {
+         headers: headers
+       }).pipe(delay(2000)).pipe(
+         catchError((error) => {
+           this.alerts.showError('Error al cargar los cursos')
+           return of(error)
+         }), finalize(() => this.loadingService.setIsLoading(false))
+       )
     }
 
-    deleteCourseById(id: number){
+    paginate(page: number, perPage = 5){
         this.loadingService.setIsLoading(true)
-        courses = courses.filter((el) => el.id != id)
-        return this.getCourses().pipe(tap(() => this.alerts.showSuccess('Realizado','Se elimino correctamente')))
+        let headers = new HttpHeaders()
+        headers.append('token', localStorage.getItem('token') || '')
+        return this.httpClient
+          .get<Pagination<Course>>(`${environment.apiURL}/courses?_page=${page}&_per_page=${perPage}`)
+          .pipe(delay(2000))
+          .pipe(
+            catchError((error) => {
+              this.alerts.showError('Error al cargar los cursos')
+              return of(error)
+            }), finalize(() => this.loadingService.setIsLoading(false))      
+          )
+    }
+
+    deleteCourseById(id: string){
+      this.loadingService.setIsLoading(true)
+      return this.httpClient.delete<Course>(`${environment.apiURL}/courses/${id}`).pipe(
+        mergeMap(() => this.paginate(1)),
+        tap(() => this.alerts.showSuccess('Realizado','Se elimino correctamente'))
+      )
     }
 
     createCourse(data: Course){
-        courses = [...courses, {...data, id: courses.length + 1}]        
-        return this.getCourses()
+      this.loadingService.setIsLoading(true)
+      return this.httpClient
+      .post<Course>(`${environment.apiURL}/courses`, {...data})
+      .pipe(
+        mergeMap(() => this.paginate(1)),
+        tap(() => this.alerts.showSuccess('Realizado','Se creo correctamente'))
+      )
     }
 
-    updateCourseById(id : number, data: Course) {
-        courses = courses.map((el) => el.id === id ? { ...el, ...data } : el)
-        return this.getCourses()
+    updateCourseById(id : string, data: Course) {
+      this.loadingService.setIsLoading(true)
+      return this.httpClient.put<Course>(`${environment.apiURL}/courses/${id}`, {...data})
+      .pipe(
+        mergeMap(() => this.paginate(1)),
+        tap(() => this.alerts.showSuccess('Realizado','Se actualizo correctamente'))
+      )
     }
 
-    getCourseById(id: number): Observable<Course | undefined> {    
-        this.loadingService.setIsLoading(true) 
-        return of(courses.find((courses) => courses.id == id)).pipe(delay(3000), finalize(() => this.loadingService.setIsLoading(false)))
+    getCourseById(id: string): Observable<Course | undefined> {    
+      return this.httpClient.get<Course>(`${environment.apiURL}/courses/${id}`)
     }
 
 }

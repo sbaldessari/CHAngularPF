@@ -1,76 +1,83 @@
 import { Injectable } from "@angular/core";
-import { Observable, delay, finalize, of, tap } from "rxjs";
+import { Observable, catchError, delay, finalize, mergeMap, of, tap } from "rxjs";
 import { Student } from "./models";
 import { LoadingService } from "../../../../core/services/loading.service";
-import { AlertService } from "../../../../core/services/alert.service";
-
-let students: Student[] = [
-    {
-        id: 1,
-        legajo: 100015,
-        dni: 11111111,
-        genero: 'MASCULINO',
-        firstName: 'Juan',
-        lastName: 'Perez',    
-        phone: '12345678',
-        email: 'jperez@academinanatural.com.ar',
-        createdAt: new Date()
-    },
-    {
-        id: 2,
-        legajo: 100016,
-        dni: 22222222,
-        genero: 'FEMENINO',
-        firstName: 'Gilda',
-        lastName: 'Gomez',    
-        phone: '98765452',
-        email: 'ggomez@academinanatural.com.ar',
-        createdAt: new Date()
-    },
-    {
-        id: 3,
-        legajo: 100017,
-        dni: 33333333,
-        genero: 'MASCULINO',
-        firstName: 'Jose',
-        lastName: 'Fernandez',    
-        phone: '34534543',
-        email: 'jfernandez@academinanatural.com.ar',
-        createdAt: new Date()
-    }
-]
+import { AlertsService } from "../../../../core/services/alerts.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "../../../../../environments/environments";
+import { Pagination } from "../../../../core/models/pagination";
 
 @Injectable()
 
 export class StudentsServices{
 
-    constructor(private loadingService: LoadingService, private alerts: AlertService){
+    constructor(private loadingService: LoadingService, 
+                private alerts: AlertsService,
+                private httpClient: HttpClient){
     }
 
     getStudents() {
        this.loadingService.setIsLoading(true)
-       return of(students).pipe(delay(2000), finalize(() => this.loadingService.setIsLoading(false)))
+       let headers = new HttpHeaders()
+       headers.append('token', localStorage.getItem('token') || '')   
+       return this.httpClient.get<Student[]>(`${environment.apiURL}/students`, {
+         headers: headers
+       }).pipe(delay(2000)).pipe(
+         catchError((error) => {
+           this.alerts.showError('Error al cargar los alumnos')
+           return of(error)
+         }), finalize(() => this.loadingService.setIsLoading(false))
+       )
+
     }
 
-    deleteStudentById(id: number){
-        this.loadingService.setIsLoading(true)
-        students = students.filter((el) => el.id != id)
-        return this.getStudents().pipe(tap(() => this.alerts.showSuccess('Realizado','Se elimino correctamente')))
+    paginate(page: number, perPage = 5){
+      this.loadingService.setIsLoading(true) 
+      let headers = new HttpHeaders()
+      headers.append('token', localStorage.getItem('token') || '')  
+      return this.httpClient
+        .get<Pagination<Student>>(`${environment.apiURL}/students?_page=${page}&_per_page=${perPage}`, {
+          headers: headers
+        }).pipe(delay(2000))
+        .pipe(
+          catchError((error) => {
+            this.alerts.showError('Error al cargar los alumnos')
+            return of(error)
+          }), finalize(() => this.loadingService.setIsLoading(false))      
+        )
+    }
+
+    deleteStudentById(id: string){
+      this.loadingService.setIsLoading(true)
+      return this.httpClient.delete<Student>(`${environment.apiURL}/students/${id}`).pipe(
+        mergeMap(() => this.paginate(1)),
+        tap(() => this.alerts.showSuccess('Realizado','Se elimino correctamente'))
+      )
     }
 
     createStudent(data: Student){
-        students = [...students, {...data, id: students.length + 1}]
-        return this.getStudents()
+      this.loadingService.setIsLoading(true)
+      let headers = new HttpHeaders()
+      headers.append('token', localStorage.getItem('token') || '') 
+      return this.httpClient
+          .post<Student>(`${environment.apiURL}/students`, {...data, headers: headers})
+          .pipe(
+            mergeMap(() => this.paginate(1)),
+            tap(() => this.alerts.showSuccess('Realizado','Se creo correctamente'))
+          )
     }
 
-    updateStudentById(id : number, data: Student) {
-        students = students.map((el) => el.id === id ? { ...el, ...data } : el)
-        return this.getStudents()
+    updateStudentById(id : string, data: Student) {
+      this.loadingService.setIsLoading(true)
+      return this.httpClient.put<Student>(`${environment.apiURL}/students/${id}`, {...data})
+      .pipe(
+        mergeMap(() => this.paginate(1)),
+        tap(() => this.alerts.showSuccess('Realizado','Se actualizo correctamente'))
+      )
     }
 
-    getStudentById(id: number): Observable<Student | undefined> {    
-        this.loadingService.setIsLoading(true) 
-        return of(students.find((students) => students.id == id)).pipe(delay(3000), finalize(() => this.loadingService.setIsLoading(false)))
+    getStudentById(id: string): Observable<Student | undefined> {    
+      return this.httpClient.get<Student>(`${environment.apiURL}/students/${id}`)
     }
 
 }

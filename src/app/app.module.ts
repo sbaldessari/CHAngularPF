@@ -11,6 +11,8 @@ import { DashboardModule } from './layouts/dashboard/dashboard.module';
 import { TitlesDirective } from './shared/titles.directive';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatNativeDateModule } from '@angular/material/core';
+import { HttpClientModule } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 registerLocaleData(es);
 
@@ -24,13 +26,15 @@ registerLocaleData(es);
     BrowserAnimationsModule,
     DashboardModule,
     MatProgressSpinnerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    HttpClientModule
   ],
   providers: [
     {
       provide: LOCALE_ID,
       useValue: 'es-AR'
-    }
+    },
+    MessageService  
   ],
   bootstrap: [AppComponent]
 })

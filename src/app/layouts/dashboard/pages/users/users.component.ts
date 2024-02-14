@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { User } from './models';
 import { UsersServices } from './users.service';
-import { LoadingService } from '../../../../core/services/loading.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
 import Swal from 'sweetalert2';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-users',
@@ -13,14 +13,38 @@ import Swal from 'sweetalert2';
 })
 export class UsersComponent {
 
-  displayedColumns = ['id', 'name', 'rol', 'phone', 'email', 'pass', 'createdAt', 'actions']
+  displayedColumns = ['id', 'name', 'rol', 'phone', 'email', 'password', 'createdAt', 'actions']
 
   users: User[] = []
 
+  totalItems = 0;
+  pageSize = 5;
+  currentPage = 1;
+
   constructor(private usersService: UsersServices, public dialog: MatDialog){    
-    this.usersService.getUsers().subscribe({
-      next: (users) => {
-        this.users = users
+  }
+
+  ngOnInit(): void {
+    this.getPageData()
+  }
+
+  getPageData(): void {
+    this.usersService.paginate(this.currentPage).subscribe({
+      next: (value) => {
+        const paginationResult = value
+        this.totalItems = paginationResult.items
+        this.users = paginationResult.data
+      }
+    })   
+  }
+
+  onPage(ev: PageEvent){
+    this.currentPage = ev.pageIndex + 1
+    this.usersService.paginate(this.currentPage, ev.pageSize).subscribe({
+      next: (paginationResult) => {
+        this.totalItems = paginationResult.items
+        this.users = paginationResult.data
+        this.pageSize = ev.pageSize        
       }
     })
   }
@@ -30,8 +54,10 @@ export class UsersComponent {
       next: (result) => {
         if (result){
           this.usersService.createUser(result).subscribe({
-            next: (users) => {
-              this.users = users
+            next: (paginationResult) => {
+              this.totalItems = paginationResult.items
+              this.users = paginationResult.data
+              this.pageSize = paginationResult.pageSize  
             }
           })
         }
@@ -39,7 +65,7 @@ export class UsersComponent {
     })
   }
 
-  onDelete(id: number) {
+  onDelete(id: string) {
     Swal.fire({
       title: "¿Esta seguro?",
       showDenyButton: false,
@@ -47,9 +73,11 @@ export class UsersComponent {
       confirmButtonText: "Aceptar",
       denyButtonText: "Cancelar"
     }).then((result) => {
-      this.usersService.deleteUserById(id).subscribe({
-        next: (users) => {
-          this.users = users
+      this.usersService.deleteUserById(id).subscribe({        
+        next: (paginationResult) => {          
+          this.totalItems = paginationResult.items
+          this.users = paginationResult.data
+          this.pageSize = paginationResult.pageSize  
         }
       })
     });
@@ -62,8 +90,10 @@ export class UsersComponent {
       next: (result) => {
         if(result){
           this.usersService.updateUserById(user.id, result).subscribe({
-            next: (users) => {
-              this.users = users
+            next: (paginationResult) => {
+              this.totalItems = paginationResult.items
+              this.users = paginationResult.data
+              this.pageSize = paginationResult.pageSize  
             }
           })
         }

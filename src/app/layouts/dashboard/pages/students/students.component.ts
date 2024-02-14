@@ -4,6 +4,7 @@ import { StudentsServices } from './students.service';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentDialogComponent } from './components/student-dialog/student-dialog.component';
 import Swal from 'sweetalert2';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-students',
@@ -16,10 +17,34 @@ export class StudentsComponent {
 
   students: Student[] = []
 
+  totalItems = 0;
+  pageSize = 5;
+  currentPage = 1;
+
   constructor(private studentsService: StudentsServices, public dialog: MatDialog){    
-    this.studentsService.getStudents().subscribe({
-      next: (students) => {
-        this.students = students
+  }
+
+  ngOnInit(): void {
+    this.getPageData()
+  }
+
+  getPageData(): void {
+    this.studentsService.paginate(this.currentPage).subscribe({
+      next: (value) => {
+        const paginationResult = value
+        this.totalItems = paginationResult.items
+        this.students = paginationResult.data
+      }
+    })   
+  }
+
+  onPage(ev: PageEvent){
+    this.currentPage = ev.pageIndex + 1
+    this.studentsService.paginate(this.currentPage, ev.pageSize).subscribe({
+      next: (paginationResult) => {
+        this.totalItems = paginationResult.items
+        this.students = paginationResult.data
+        this.pageSize = ev.pageSize        
       }
     })
   }
@@ -38,7 +63,7 @@ export class StudentsComponent {
     })
   }
 
-  onDelete(id: number) {
+  onDelete(id: string) {
     Swal.fire({
       title: "¿Esta seguro?",
       showDenyButton: false,

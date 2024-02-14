@@ -27,7 +27,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="rol">
         <th mat-header-cell *matHeaderCellDef> Rol </th>
-        <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -43,9 +43,9 @@
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="pass">
+    <ng-container matColumnDef="password">
         <th mat-header-cell *matHeaderCellDef> Clave </th>
-        <td mat-cell *matCellDef="let element"> {{element.pass}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.password}} </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -58,6 +58,9 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let element"> 
+            <button [routerLink]="element.id" mat-icon-button color="accent">
+                <mat-icon>visibility</mat-icon>
+            </button>
             <button (click)="onDelete(element.id)" mat-icon-button color="warn">
                 <mat-icon>delete</mat-icon>
             </button>
@@ -70,3 +73,11 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<mat-paginator
+    (page)="onPage($event)" 
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page">
+</mat-paginator>

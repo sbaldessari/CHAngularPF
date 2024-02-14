@@ -1,10 +1,11 @@
 export interface User {
-    id: number;    
+    id: string;    
     firstName: string;
     lastName: string;  
-    rol: string;  
+    role: string;  
     phone: string;
     email: string;
-    pass: string;    
+    password: string;    
     createdAt: Date;
+    token: string;
 }

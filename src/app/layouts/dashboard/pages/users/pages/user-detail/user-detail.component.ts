@@ -21,7 +21,7 @@ export class UserDetailComponent {
       id: this.fb.control(''),
       firstName: this.fb.control(''),
       lastName: this.fb.control(''),
-      rol: this.fb.control(''),
+      role: this.fb.control(''),
       phone: this.fb.control(''),
       email: this.fb.control(''),
       pass: this.fb.control(''),
@@ -34,10 +34,10 @@ export class UserDetailComponent {
           id: this.fb.control(finderUser?.id),
           firstName: this.fb.control(finderUser?.firstName),
           lastName: this.fb.control(finderUser?.lastName),
-          rol: this.fb.control(finderUser?.rol),
+          role: this.fb.control(finderUser?.role),
           phone: this.fb.control(finderUser?.phone),
           email: this.fb.control(finderUser?.email),
-          pass: this.fb.control(finderUser?.pass),          
+          pass: this.fb.control(finderUser?.password),          
           createdAt: this.fb.control(finderUser?.createdAt)
         })
     

@@ -5,6 +5,7 @@ import { LoadingService } from '../../../../core/services/loading.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseDialogComponent } from './components/course-dialog/course-dialog.component';
 import Swal from 'sweetalert2';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-courses',
@@ -17,10 +18,34 @@ export class CoursesComponent {
 
   courses: Course[] = []
 
-  constructor(private coursesService: CoursesServices, public dialog: MatDialog){    
-    this.coursesService.getCourses().subscribe({
-      next: (courses) => {
-        this.courses = courses
+  totalItems = 0;
+  pageSize = 5;
+  currentPage = 1;
+
+  constructor(private coursesService: CoursesServices, public dialog: MatDialog){ 
+  }
+
+  ngOnInit(): void {
+    this.getPageData()
+  }
+
+  getPageData(): void {
+    this.coursesService.paginate(this.currentPage).subscribe({
+      next: (value) => {
+        const paginationResult = value
+        this.totalItems = paginationResult.items
+        this.courses = paginationResult.data
+      }
+    })   
+  }
+
+  onPage(ev: PageEvent){
+    this.currentPage = ev.pageIndex + 1
+    this.coursesService.paginate(this.currentPage, ev.pageSize).subscribe({
+      next: (paginationResult) => {
+        this.totalItems = paginationResult.items
+        this.courses = paginationResult.data
+        this.pageSize = ev.pageSize        
       }
     })
   }
@@ -39,7 +64,7 @@ export class CoursesComponent {
     })
   }
 
-  onDelete(id: number) {
+  onDelete(id: string) {
     Swal.fire({
       title: "¿Esta seguro?",
       showDenyButton: false,

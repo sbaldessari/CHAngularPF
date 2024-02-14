@@ -24,7 +24,6 @@ export class CourseDetailComponent {
 
     this.coursesService.getCourseById(this.route.snapshot.params['id']).subscribe({
       next: (finderCourse) => {
-        //console.log(finderCourse)
         this.courseForm = this.fb.group({
           name: this.fb.control(finderCourse?.name),
           createdAt: this.fb.control(finderCourse?.createdAt),
