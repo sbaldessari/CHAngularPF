@@ -7,3 +7,8 @@ export interface Pagination<T> {
     items: number;
     data: T[]
 }
+
+export interface PaginationParams {
+    page: number,
+    perPage: number;
+}

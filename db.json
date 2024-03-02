@@ -9,7 +9,7 @@
       "email": "jmartinez@academinanatural.com.ar",
       "password": "Abcd1234",
       "createdAt": "2022-10-31T09:00:00Z",
-      "token": "dkfor4ks6hjdft9"
+      "token": "dkfor4345345ft9"
     },
     {
       "id": "ok45",
@@ -20,7 +20,7 @@
       "email": "jgomez@academinanatural.com.ar",
       "password": "Abcd1234",
       "createdAt": "2022-10-31T09:00:00Z",
-      "token": "dkfor4ks6333ft9"
+      "token": "dkfsdfsdfsdf33ft9"
     },
     {
       "id": "ed98",
@@ -30,18 +30,8 @@
       "phone": "12345678",
       "email": "mrodriguez@academinanatural.com.ar",
       "password": "Abcd1234",
-      "createdAt": "2023-05-31T09:00:00Z"
-    },
-    {
-      "id": "6b62",
-      "firstName": "Cesar",
-      "lastName": "Sosa",
-      "role": "USER",
-      "phone": "321654",
-      "email": "csosa@academianatural.com.ar",
-      "password": "Abcd1234",
-      "createdAt": "2024-02-12T03:00:00.000Z",
-      "token": "7KDg2cJNSbItYWn"
+      "createdAt": "2023-05-31T09:00:00Z",
+      "token": "fefwefwfwefwefee3"
     }
   ],
   "courses": [
@@ -66,14 +56,24 @@
       "createdAt": "2023-06-31T09:00:00Z"
     },
     {
-      "id": "fv67",
       "name": "Ingles",
-      "createdAt": "2023-06-31T09:00:00Z"
+      "createdAt": "2023-06-31T09:00:00Z",
+      "id": "fv67"
     },
     {
       "id": "hn2s",
       "name": "Quimica",
       "createdAt": "2024-01-31T09:00:00Z"
+    },
+    {
+      "id": "ab84",
+      "name": "Gimnasia",
+      "createdAt": "2024-02-28T03:00:00.000Z"
+    },
+    {
+      "id": "5414",
+      "name": "Programación",
+      "createdAt": "2024-03-02T03:00:00.000Z"
     }
   ],
   "students": [
@@ -123,7 +123,7 @@
     },
     {
       "id": "kgf4",
-      "legajo": 100015,
+      "legajo": 100899,
       "dni": 55555555,
       "genero": "FEMENINO",
       "firstName": "Silvina",
@@ -153,6 +153,114 @@
       "phone": "12345678",
       "email": "talvarez@academinanatural.com.ar",
       "createdAt": "2022-07-31T09:00:00Z"
+    },
+    {
+      "id": "5m20",
+      "legajo": 100025,
+      "dni": 99568845,
+      "genero": "FEMENINO",
+      "firstName": "Lucia",
+      "lastName": "Lopez",
+      "phone": "123456",
+      "email": "llopez@academianatural.com.ar",
+      "createdAt": "2024-02-28T03:00:00.000Z"
+    },
+    {
+      "id": "2f1c",
+      "legajo": 100062,
+      "dni": 45215584,
+      "genero": "MASCULINO",
+      "firstName": "Orlando",
+      "lastName": "Perez",
+      "phone": "123654",
+      "email": "operez@academianatural.com.ar",
+      "createdAt": "2024-02-23T03:00:00.000Z"
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "87f9",
+      "studentId": "ed52",
+      "courseId": "fv67",
+      "userId": "lcdf",
+      "createdAt": "2024-02-28T20:42:31.216Z"
+    },
+    {
+      "id": "d457",
+      "studentId": "ijde",
+      "courseId": "dc87",
+      "userId": "lcdf",
+      "createdAt": "2024-02-28T20:53:15.344Z"
+    },
+    {
+      "id": "74b5",
+      "studentId": "ijde",
+      "courseId": "ab84",
+      "userId": "lcdf",
+      "createdAt": "2024-02-28T21:48:02.245Z"
+    },
+    {
+      "id": "7883",
+      "studentId": "d0o9",
+      "courseId": "dc87",
+      "userId": "lcdf",
+      "createdAt": "2024-02-28T21:56:54.850Z"
+    },
+    {
+      "id": "21e3",
+      "studentId": "d0o9",
+      "courseId": "dc87",
+      "userId": "lcdf",
+      "createdAt": "2024-02-29T18:21:26.110Z"
+    },
+    {
+      "id": "577c",
+      "studentId": "ed52",
+      "courseId": "dc87",
+      "userId": "lcdf",
+      "createdAt": "2024-02-29T18:21:36.806Z"
+    },
+    {
+      "id": "df56",
+      "studentId": "k1a9",
+      "courseId": "ab84",
+      "userId": "lcdf",
+      "createdAt": "2024-03-02T18:09:28.901Z"
+    },
+    {
+      "id": "ki89",
+      "studentId": "k1a9",
+      "courseId": "fv67",
+      "userId": "lcdf",
+      "createdAt": "2024-03-02T18:13:32.869Z"
+    },
+    {
+      "id": "df45",
+      "studentId": "d0o9",
+      "courseId": "fv67",
+      "userId": "lcdf",
+      "createdAt": "2024-03-02T18:14:09.701Z"
+    },
+    {
+      "id": "ju67",
+      "studentId": "k1a9",
+      "courseId": "fv67",
+      "userId": "lcdf",
+      "createdAt": "2024-03-02T18:16:15.565Z"
+    },
+    {
+      "id": "80be",
+      "studentId": "d0o9",
+      "courseId": "fv67",
+      "userId": "lcdf",
+      "createdAt": "2024-03-02T18:21:15.208Z"
+    },
+    {
+      "id": "dc04",
+      "studentId": "2f1c",
+      "courseId": "ab84",
+      "userId": "lcdf",
+      "createdAt": "2024-03-02T18:22:56.784Z"
     }
   ]
 }

@@ -5,11 +5,11 @@ import { UserDetailComponent } from './pages/user-detail/user-detail.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'users',
     component: UsersComponent
   },
   {
-    path: ':id',
+    path: 'users/:id',
     component: UserDetailComponent
   },
 ];

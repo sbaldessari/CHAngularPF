@@ -43,24 +43,26 @@ export class StudentsServices{
           catchError((error) => {
             this.alerts.showError('Error al cargar los alumnos')
             return of(error)
-          }), finalize(() => this.loadingService.setIsLoading(false))      
+          }), finalize(() => this.loadingService.setIsLoading(false)
+          )      
         )
     }
 
     deleteStudentById(id: string){
       this.loadingService.setIsLoading(true)
-      return this.httpClient.delete<Student>(`${environment.apiURL}/students/${id}`).pipe(
-        mergeMap(() => this.paginate(1)),
-        tap(() => this.alerts.showSuccess('Realizado','Se elimino correctamente'))
-      )
+      return this.httpClient.delete<Student>
+        (`${environment.apiURL}/students/${id}`)
+        .pipe(
+          mergeMap(() => this.paginate(1)),
+          tap(() => this.alerts.showSuccess('Realizado','Se elimino correctamente'))
+        )
     }
 
     createStudent(data: Student){
       this.loadingService.setIsLoading(true)
-      let headers = new HttpHeaders()
-      headers.append('token', localStorage.getItem('token') || '') 
+      const { id, ...eventData } = data;
       return this.httpClient
-          .post<Student>(`${environment.apiURL}/students`, {...data, headers: headers})
+          .post<Student>(`${environment.apiURL}/students`, {...eventData})
           .pipe(
             mergeMap(() => this.paginate(1)),
             tap(() => this.alerts.showSuccess('Realizado','Se creo correctamente'))

@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CourseDialogComponent } from './components/course-dialog/course-dialog.component';
 import Swal from 'sweetalert2';
 import { PageEvent } from '@angular/material/paginator';
+import { UsersServices } from '../users/users.service';
 
 @Component({
   selector: 'app-courses',
@@ -18,11 +19,22 @@ export class CoursesComponent {
 
   courses: Course[] = []
 
+  isRoleAdmin: boolean = false
+
   totalItems = 0;
   pageSize = 5;
   currentPage = 1;
 
-  constructor(private coursesService: CoursesServices, public dialog: MatDialog){ 
+  constructor(private coursesService: CoursesServices, 
+              public dialog: MatDialog, 
+              public usersServices: UsersServices){ 
+    this.usersServices.getUserByToken().subscribe({
+      next: (user) => {
+        if(user[0].role === 'ADMIN'){
+          this.isRoleAdmin = true
+        }
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -55,8 +67,10 @@ export class CoursesComponent {
       next: (result) => {
         if (result){
           this.coursesService.createCourse(result).subscribe({
-            next: (courses) => {
-              this.courses = courses
+            next: (paginationResult) => {
+              this.totalItems = paginationResult.items
+              this.courses = paginationResult.data
+              this.pageSize = paginationResult.pageSize  
             }
           })
         }
@@ -72,11 +86,15 @@ export class CoursesComponent {
       confirmButtonText: "Aceptar",
       denyButtonText: "Cancelar"
     }).then((result) => {
-      this.coursesService.deleteCourseById(id).subscribe({
-        next: (courses) => {
-          this.courses = courses
-        }
-      })
+      if(result.isConfirmed){
+        this.coursesService.deleteCourseById(id).subscribe({
+          next: (paginationResult) => {
+            this.totalItems = paginationResult.items
+            this.courses = paginationResult.data
+            this.pageSize = paginationResult.pageSize  
+          }
+        })
+      }
     });
   }
 
@@ -87,8 +105,10 @@ export class CoursesComponent {
       next: (result) => {
         if(result){
           this.coursesService.updateCourseById(course.id, result).subscribe({
-            next: (courses) => {
-              this.courses = courses
+            next: (paginationResult) => {
+              this.totalItems = paginationResult.items
+              this.courses = paginationResult.data
+              this.pageSize = paginationResult.pageSize  
             }
           })
         }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { User } from './pages/users/models';
+import { UsersServices } from './pages/users/users.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,15 @@ import { AuthService } from '../auth/auth.service';
 export class DashboardComponent {
   showFiller = false;
 
-  constructor(private authService: AuthService){}
+  authUser?: User
+
+  constructor(private authService: AuthService, private usersService: UsersServices){
+    this.usersService.getUserByToken().subscribe({
+      next: (user) => {
+        this.authUser = user[0]            
+      }
+    })    
+  }
 
   logout(): void {
     this.authService.logout()

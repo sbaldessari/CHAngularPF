@@ -90,4 +90,9 @@ export class UsersServices{
       return this.httpClient.get<User>(`${environment.apiURL}/users/${id}`)
     }
 
+    getUserByToken() {  
+      const token = localStorage.getItem('token')
+      return this.httpClient.get<User[]>(`${environment.apiURL}/users?token=${token}`)
+    }
+
 }

@@ -25,15 +25,16 @@ export class AlertsService {
         this.notification$.next({
             icon: 'success',
             text: message,
-            title: title
+            title: title,
+            didClose: () => location.reload()
         })
     }
 
-    showError(message: string ): void {
+    showError(message: string): void {
         this.notification$.next({
             icon: 'error',
             text: message,
-            title: 'Error'
+            title: 'Error'            
         })
     }
 

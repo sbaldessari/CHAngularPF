@@ -1,5 +1,5 @@
 <div appTitles>
-    Usuarios
+    Inscripciones
 </div>
 
 <div class="flex justify-content-end mb-3">
@@ -7,7 +7,7 @@
 </div>
 
 
-<table mat-table [dataSource]="users" class="mat-elevation-z8">
+<table mat-table [dataSource]="enrollments" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
@@ -19,28 +19,22 @@
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
-        <td mat-cell *matCellDef="let element"> {{element | fullName}} </td>
-    </ng-container>
+    <ng-container matColumnDef="student">
+        <th mat-header-cell *matHeaderCellDef> Alumno </th>
+        <td mat-cell *matCellDef="let element"> {{element.student | fullName}} </td>
+    </ng-container>  
 
     <!-- Name Column -->
-    <ng-container matColumnDef="rol">
-        <th mat-header-cell *matHeaderCellDef> Rol </th>
-        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
-    </ng-container>
+    <ng-container matColumnDef="course">
+        <th mat-header-cell *matHeaderCellDef> Curso </th>
+        <td mat-cell *matCellDef="let element"> {{ element.course.name }} </td>
+    </ng-container>  
 
     <!-- Name Column -->
-    <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-    </ng-container>
+    <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef> Usuario</th>
+        <td mat-cell *matCellDef="let element"> {{element.user | fullName}} </td>
+    </ng-container>  
 
     <!-- Name Column -->
     <ng-container matColumnDef="createdAt">

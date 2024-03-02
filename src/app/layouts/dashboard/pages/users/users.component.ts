@@ -13,7 +13,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class UsersComponent {
 
-  displayedColumns = ['id', 'name', 'rol', 'phone', 'email', 'password', 'createdAt', 'actions']
+  displayedColumns = ['id', 'name', 'rol', 'phone', 'email', 'createdAt', 'actions']
 
   users: User[] = []
 
@@ -73,13 +73,15 @@ export class UsersComponent {
       confirmButtonText: "Aceptar",
       denyButtonText: "Cancelar"
     }).then((result) => {
-      this.usersService.deleteUserById(id).subscribe({        
-        next: (paginationResult) => {          
-          this.totalItems = paginationResult.items
-          this.users = paginationResult.data
-          this.pageSize = paginationResult.pageSize  
-        }
-      })
+      if(result.isConfirmed){
+        this.usersService.deleteUserById(id).subscribe({        
+          next: (paginationResult) => {          
+            this.totalItems = paginationResult.items
+            this.users = paginationResult.data
+            this.pageSize = paginationResult.pageSize  
+          }
+        })
+      }
     });
   }
 

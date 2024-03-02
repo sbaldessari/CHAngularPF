@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesServices } from '../../courses.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -15,7 +15,8 @@ export class CourseDetailComponent {
   constructor(
     private fb: FormBuilder, 
     private route: ActivatedRoute, 
-    private coursesService: CoursesServices){
+    private coursesService: CoursesServices,
+    private router: Router){
 
     this.courseForm = this.fb.group({
       name: this.fb.control(''),
@@ -32,6 +33,10 @@ export class CourseDetailComponent {
       }
     })
 
+  }
+
+  returnPageCourses(){
+    this.router.navigate(['dashboard/courses'])    
   }
   
 }

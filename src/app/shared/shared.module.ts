@@ -46,7 +46,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSelectModule,
     MatPaginatorModule,
     MatCardModule,
-    ValidationErrorsPipe
+    ValidationErrorsPipe,
+    MatSelectModule    
   ]
 })
 export class SharedModule { }

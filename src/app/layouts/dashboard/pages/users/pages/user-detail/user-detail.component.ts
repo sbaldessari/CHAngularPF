@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsersServices } from '../../users.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -15,7 +15,8 @@ export class UserDetailComponent {
   constructor(
     private fb: FormBuilder, 
     private route: ActivatedRoute, 
-    private usersService: UsersServices){
+    private usersService: UsersServices,
+    private router: Router){
 
     this.userForm = this.fb.group({
       id: this.fb.control(''),
@@ -44,6 +45,10 @@ export class UserDetailComponent {
       }
     })
 
+  }
+
+  returnPageUsers(){
+    this.router.navigate(['dashboard/users'])    
   }
 
 

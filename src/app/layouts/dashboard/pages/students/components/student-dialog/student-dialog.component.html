@@ -58,7 +58,7 @@
             <mat-form-field class="w-full">
                 <mat-label>Fecha de creacion</mat-label>
                 <input formControlName="createdAt" matInput [matDatepicker]="fechaCreacionPicker">
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="fechaCreacionPicker"></mat-datepicker-toggle>
                 <mat-datepicker #fechaCreacionPicker></mat-datepicker>
             </mat-form-field>
@@ -67,5 +67,5 @@
 </div>
 <div mat-dialog-actions>
     <button mat-dialog-close mat-button>Cancelar</button>
-    <button (click)="onSave()" mat-button>Guardar</button>
+    <button (click)="onSave()" mat-flat-button type="button" color="primary">Guardar</button>
 </div>

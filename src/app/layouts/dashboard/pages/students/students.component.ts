@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { StudentDialogComponent } from './components/student-dialog/student-dialog.component';
 import Swal from 'sweetalert2';
 import { PageEvent } from '@angular/material/paginator';
+import { UsersServices } from '../users/users.service';
 
 @Component({
   selector: 'app-students',
@@ -17,11 +18,21 @@ export class StudentsComponent {
 
   students: Student[] = []
 
+  isRoleAdmin: boolean = false
+
   totalItems = 0;
   pageSize = 5;
   currentPage = 1;
 
-  constructor(private studentsService: StudentsServices, public dialog: MatDialog){    
+  constructor(private studentsService: StudentsServices, 
+    public dialog: MatDialog, private usersServices: UsersServices){ 
+      this.usersServices.getUserByToken().subscribe({
+        next: (user) => {
+          if(user[0].role === 'ADMIN'){
+            this.isRoleAdmin = true
+          }
+        }
+      })  
   }
 
   ngOnInit(): void {
@@ -54,8 +65,10 @@ export class StudentsComponent {
       next: (result) => {
         if (result){
           this.studentsService.createStudent(result).subscribe({
-            next: (students) => {
-              this.students = students
+            next: (paginationResult) => {
+              this.totalItems = paginationResult.items
+              this.students = paginationResult.data
+              this.pageSize = paginationResult.pageSize  
             }
           })
         }
@@ -71,11 +84,15 @@ export class StudentsComponent {
       confirmButtonText: "Aceptar",
       denyButtonText: "Cancelar"
     }).then((result) => {
-      this.studentsService.deleteStudentById(id).subscribe({
-        next: (students) => {
-          this.students = students
-        }
-      })
+      if(result.isConfirmed){
+        this.studentsService.deleteStudentById(id).subscribe({
+          next: (paginationResult) => {
+            this.totalItems = paginationResult.items
+            this.students = paginationResult.data
+            this.pageSize = paginationResult.pageSize  
+          }
+        })
+      }
     });
   }
 
@@ -86,8 +103,10 @@ export class StudentsComponent {
       next: (result) => {
         if(result){
           this.studentsService.updateStudentById(student.id, result).subscribe({
-            next: (students) => {
-              this.students = students
+            next: (paginationResult) => {
+              this.totalItems = paginationResult.items
+              this.students = paginationResult.data
+              this.pageSize = paginationResult.pageSize  
             }
           })
         }

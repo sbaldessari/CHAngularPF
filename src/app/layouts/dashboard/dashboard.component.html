@@ -30,6 +30,13 @@
         routerLink="courses" 
         mat-list-item>Cursos
       </a>
+      <a 
+        #enrollmentsLink="routerLinkActive"
+        routerLinkActive
+        [activated]="enrollmentsLink.isActive"
+        routerLink="enrollments" 
+        mat-list-item>Inscripciones
+      </a>
       <a (click)="logout()" mat-list-item>Cerrar sesion</a>
     </mat-nav-list>
   </mat-drawer>
@@ -40,6 +47,11 @@
             <mat-icon>menu</mat-icon>
           </button>
           <span>Academia Natural</span>
+          <span style="flex: 1"></span>
+          <div *ngIf="authUser; let user">
+            <span>{{ user.firstName }} {{ user.lastName}} - Rol: {{ user.role }}</span>
+            <p class="m-0">{{ user.email }}</p>
+          </div>
       </mat-toolbar>
 
       <div class="p-3">

@@ -2,10 +2,11 @@
     Cursos
 </div>
 
-<div class="flex justify-content-end mb-3">
-    <button (click)="onCreate()" mat-button>Agregar</button>
+<div *ngIf="isRoleAdmin">
+    <div class="flex justify-content-end mb-3">
+        <button (click)="onCreate()" mat-flat-button type="button" color="primary">Agregar</button>
+    </div>
 </div>
-
 
 <table mat-table [dataSource]="courses" class="mat-elevation-z8">
 
@@ -37,12 +38,14 @@
             <button [routerLink]="element.id" mat-icon-button color="accent">
                 <mat-icon>visibility</mat-icon>
             </button>
-            <button (click)="onDelete(element.id)" mat-icon-button color="warn">
-                <mat-icon>delete</mat-icon>
-            </button>
-            <button (click)="onEdit(element)" mat-icon-button color="primary">
-                <mat-icon>edit</mat-icon>
-            </button>
+            <span *ngIf="isRoleAdmin">
+                <button (click)="onDelete(element.id)" mat-icon-button color="warn">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button (click)="onEdit(element)" mat-icon-button color="primary">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </span>
         </td>
     </ng-container>
 

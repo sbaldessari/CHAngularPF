@@ -26,7 +26,8 @@ export class UserDialogComponent {
       phone: this.fb.control('', Validators.required),
       email: this.fb.control('', Validators.required),
       password: this.fb.control('', Validators.required),
-      createdAt: this.fb.control('', Validators.required)
+      createdAt: this.fb.control('', Validators.required),
+      token: this.fb.control('')
     })
 
     if(editingUser){
